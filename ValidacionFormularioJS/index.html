@@ -6,10 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script>
+        function validacion() {
+            var valor1 = document.getElementById("registro_nombre").value;
+            var valor2 = document.getElementById("registro_email").value;
+            var valor3 = document.getElementById("registro_comentarios").value;
+            var valor4 = document.getElementById("registro_password").value;
+            var valor5 = document.getElementById("registro_condiciones").checked;
+
+            //Constraseña 8-16 caracteres con digito mayus y minus
+            var patt = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
+
+            if (valor1 === "" || valor2 === "") {
+                alert('Los campos nombre, email son obligatorios.');
+                return false;
+            }
+            if (valor3.length === 0) {
+                alert('El campo comentario es obligatorio');
+                return false;
+            }
+            if (!valor2.includes('@')) {
+                alert('El campo email debe incluir la @');
+                return false;
+            }
+            if (valor3.length > 50) {
+                alert('El campo comentario no puede exceder de los 50 caracteres');
+                return false;
+            }
+            if (!patt.test(valor4)) {
+                alert('La contraseña no es correcta');
+                return false;
+            }
+            if (!valor5) {
+                alert('Debes aceptar las condiciones');
+                return false;
+            }
+            //Si se completa todo, devuelve true porque está correcto
+            alert('Formulario infernal completado!');
+            return true;
+        }
+    </script>
 </head>
 <body>
-    
-    
-    <script type="text/javascript" src="/js/main.js"></script>
+    <form action="" method="post" id="registro" onsubmit="return validacion()">
+        <fieldset>
+            <legend>Registro</legend>
+            <label for="registro_nombre">
+                Nombre:
+            </label>
+            <input type="text" name="nombre" id="registro_nombre"/>
+            
+            <label for="registro_apellidos">
+                Apellidos:
+            </label>
+            <input type="text" name="apellidos" id="registro_apellidos"/>
+
+            <label for="registro_email">
+                Email:
+            </label>
+            <input type="text" name="email" id="registro_email"/>
+
+            <label for="registro_password">
+                Password:
+            </label>
+            <input type="password" name="password" id="registro_password"/>
+
+            <label for="registro_comentarios">
+                Comentarios:
+            </label>
+            <textarea name="comentarios" id="registro_comentarios" rows="5"></textarea>
+
+            <input type="checkbox" name="condiciones" id="registro_condiciones" value="1">
+            <label for="registro_condiciones">Acepto las condiciones de servicio.</label>
+
+            <input type="submit" value="Enviar formulario">
+        </fieldset>
+    </form>
 </body>
 </html>
